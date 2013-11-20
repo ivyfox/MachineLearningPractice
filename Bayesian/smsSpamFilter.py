@@ -22,11 +22,14 @@ def build_vocabulary(dataset):
     vocabulary = sorted(vocabulary)
     return vocabulary
 
-def text2vec(vocabulary, text):
+def text2vec(vocabulary, text, mode='bag_of_words'):
     vec = [ 0 for word in vocabulary ]
     for term in text:
         if term in vocabulary:
-            vec[vocabulary.index(term)] += 1
+            if mode == 'bag_of_words':
+                vec[vocabulary.index(term)] += 1
+            elif mode == 'set_of_words':
+                vec[vocabulary.index(term)] = 1
         #else:
             #print term + ' is not in vocabulary.'
     return vec
@@ -64,7 +67,7 @@ def run_test(filename, vocabulary, priori_ham, priori_spam, likelihood_ham, like
     for line in content:
         terms = splitter.split(line)
         label = terms[0]
-        vec = text2vec(vocabulary,terms[1:])
+        vec = text2vec(vocabulary,terms[1:],'set_of_words')
         target = classify(vec,priori_ham,priori_spam,likelihood_ham,likelihood_spam)
         if label == target: cnt_correct += 1
         cnt_all += 1
