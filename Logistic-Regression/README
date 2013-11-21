@@ -1,0 +1,3 @@
+logisticRegression.py: logistic regression algorithm.
+breastCancer.py: a breast cancer detector.
+horseColic.py: a live/die predictor on horses.
