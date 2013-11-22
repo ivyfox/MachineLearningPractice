@@ -35,7 +35,7 @@ def load_edges(filename):
 
 def build_transmit_matrix(graph, d=0.85):
     n = max(graph.keys())
-    mtrx = mat(zeros((n+1,n+1)))
+    mtrx = mat(zeros((n+1,n+1))) # the node-ids start from 1
     for from_id in graph:
         for to_id in graph[from_id]:
             mtrx[to_id,from_id] = 1.0 / len(graph[from_id])
